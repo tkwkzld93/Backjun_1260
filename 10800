@@ -1,0 +1,65 @@
+#include <iostream>
+#include <queue>
+#include <stdlib.h>
+#include <stdio.h>
+#include <algorithm>
+#include <string.h>
+#include <map>
+
+using namespace std;
+
+int cArr[200001] = { 0, };
+int sArr[200001] = { 0, };
+int answer[200001] = { 0, };
+
+struct  ball
+{
+	int idx, color, size;
+};
+
+bool compare(ball& a, ball& b)
+{
+	if (a.size == b.size)
+		return a.color < b.color;
+	return a.size < b.size;
+}
+
+int main()
+{
+	vector<ball> b;
+	
+	int N;
+	int color = 0, size = 0;
+	int total = 0;
+	cin >> N;
+
+	for (int i = 0; i < N ; i++)
+	{
+		cin >> color >> size;
+		b.push_back({ i, color, size });
+	}
+
+	sort(b.begin(), b.end(), compare);
+
+	for (int i = 0; i < N; i++)
+	{
+		int idx = b[i].idx;
+		int color = b[i].color;
+		int size = b[i].size;
+
+		total += size;
+		cArr[color] += size;
+		sArr[size] += size;
+
+		if (i > 0 && b[i - 1].color == color && b[i - 1].size == size)
+			answer[idx] = answer[b[i - 1].idx];
+		else
+			answer[idx] = total - cArr[color] - sArr[size] + size;
+	}
+
+	for (int i = 0; i < N; i++)
+	{
+		cout << answer[i] << "\n";
+	}
+	return 0;
+}
