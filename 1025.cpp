@@ -1,4 +1,13 @@
-#include "Main.h"
+#pragma once
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <stdlib.h>
+#include <stdio.h>
+#include <algorithm>
+#include <string.h>
+#include <map>
+
 
 using namespace std;
 int main()
